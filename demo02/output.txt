@@ -1,0 +1,1 @@
+var writerStream = fs.createWriteStreamvar writerStream = fs.createWriteStream
