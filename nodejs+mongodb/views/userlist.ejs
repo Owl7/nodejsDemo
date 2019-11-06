@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>index</title>
+    </head>
+
+    <body>
+        <h2>User List</h2>
+        </br>
+        <ul>
+            <% for(var i = 0; i < list.length; i++) { %>
+                <li>名称: <%= list[i].name %>, 年龄: <%= list[i].age %>  |  <a href="/edit?id=1">修改</a>   <a href="/del">删除</a></li> 
+            <%} %>
+        </ul>
+    </body>
+</html>

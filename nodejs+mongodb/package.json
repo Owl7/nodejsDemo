@@ -13,7 +13,9 @@
     "@types/ejs": "^2.6.3"
   },
   "dependencies": {
-    "myjs-common": "^1.0.0",
-    "ejs": "^2.6.3"
+    "@types/mongodb": "^3.3.8",
+    "ejs": "^2.6.3",
+    "mongodb": "^3.3.3",
+    "myjs-common": "^1.0.0"
   }
 }
