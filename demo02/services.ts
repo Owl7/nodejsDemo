@@ -1,25 +1,26 @@
-import *as http from 'http';
-import *as fs from 'fs';
+import * as http from 'http';
+import * as url from 'url';
+import * as newRouter from './model/newrouter';
 
-const app = http.createServer(function(req, res) {
+http.createServer(function(req, res) {
 
-    var pathname = req.url;
-    console.log(pathname);
-    if (pathname == "/") {
-        pathname = 'index.html';
+    res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
+
+    var pathname: string = ""
+    if (req.url != null) {
+        var originalPath = url.parse(req.url).pathname;
+        if (originalPath != null) { 
+            pathname = originalPath.replace('/', '');
+        }
     }
 
-    if (pathname != '/favicon.ico') {
-        fs.readFile('html/' + pathname, function(err, result) {
-            if (err) {
-                console.log('404');
-            } else {
-                
-            }
-        });
+    if (pathname != 'favicon.ico') {
+        try {
+            newRouter.app[pathname](req, res);
+        } catch (error) {
+            console.log(error);
+            newRouter.app['home'](req, res);
+        }
     }
 
-    res.writeHead(200, {'Content-Type': 'text/plan'});
-    res.write('Hello HAHAHAAHA');
-    res.end();
 }).listen(8000);

@@ -7,11 +7,25 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const http = __importStar(require("http"));
-const app = http.createServer(function (req, res) {
-    var pathname = req.url;
-    console.log(pathname);
-    res.writeHead(200, { 'Content-Type': 'text/plan' });
-    res.write('Hello HAHAHAAHA');
-    res.end();
+var http = __importStar(require("http"));
+var url = __importStar(require("url"));
+var newRouter = __importStar(require("./model/newrouter"));
+http.createServer(function (req, res) {
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    var pathname = "";
+    if (req.url != null) {
+        var originalPath = url.parse(req.url).pathname;
+        if (originalPath != null) {
+            pathname = originalPath.replace('/', '');
+        }
+    }
+    if (pathname != 'favicon.ico') {
+        try {
+            newRouter.app[pathname](req, res);
+        }
+        catch (error) {
+            console.log(error);
+            newRouter.app['home'](req, res);
+        }
+    }
 }).listen(8000);
